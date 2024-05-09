@@ -99,6 +99,7 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
+
 class ShoppingList(models.Model):
     """Model for add product in Shopping list."""
 
