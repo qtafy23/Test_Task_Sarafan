@@ -1,3 +1,5 @@
+from django.core.validators import MaxValueValidator, MinValueValidator
+
 from django.contrib.auth import get_user_model
 from django.db import models
 
@@ -17,7 +19,9 @@ class Category(models.Model):
     )
     image = models.ImageField(
         upload_to='media/',
-        help_text='Attach an image'
+        help_text='Attach an image',
+        blank=True,
+        null=True,
     )
 
     class Meta:
@@ -42,12 +46,14 @@ class Subcategory(models.Model):
     )
     category = models.ForeignKey(
         Category,
-        on_delete=models.CASCADE,
+        on_delete=models.PROTECT,
         related_name='subcategory',
     )
     image = models.ImageField(
         upload_to='media/',
-        help_text='Attach an image'
+        help_text='Attach an image',
+        blank=True,
+        null=True,
     )
 
     class Meta:
@@ -64,12 +70,12 @@ class Product(models.Model):
 
     category = models.ForeignKey(
         Category,
-        on_delete=models.CASCADE,
+        on_delete=models.PROTECT,
         related_name='products',
     )
     subcategory = models.ForeignKey(
         Subcategory,
-        on_delete=models.CASCADE,
+        on_delete=models.PROTECT,
         related_name='products',
     )
     name = models.CharField(
@@ -83,14 +89,20 @@ class Product(models.Model):
     small_image = models.ImageField(
         upload_to='media/Simages/',
         help_text='Attach an image small size.',
+        blank=True,
+        null=True,
     )
     medium_image = models.ImageField(
         upload_to='media/Mimages/',
         help_text='Attach an image medium size.',
+        blank=True,
+        null=True,
     )
     large_image = models.ImageField(
         upload_to='media/Limages/',
         help_text='Attach an image large size.',
+        blank=True,
+        null=True,
     )
 
     class Meta:
@@ -112,6 +124,15 @@ class ShoppingList(models.Model):
         Product,
         on_delete=models.CASCADE,
         related_name='shoppings',
+    )
+    amount = models.PositiveIntegerField(
+        validators=[
+            MaxValueValidator(
+                10000,
+                message='Amount must be less then 10000!'
+            )
+        ],
+        blank=True,
     )
 
     class Meta:
