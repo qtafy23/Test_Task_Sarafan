@@ -25,7 +25,7 @@ class Category(models.Model):
     )
 
     class Meta:
-        ordering = ('name',)
+        ordering = ('id',)
         verbose_name = 'category'
         verbose_name_plural = 'Categories'
 
@@ -57,7 +57,7 @@ class Subcategory(models.Model):
     )
 
     class Meta:
-        ordering = ('name',)
+        ordering = ('id',)
         verbose_name = 'subcategory'
         verbose_name_plural = 'Subcategories'
 
@@ -106,14 +106,14 @@ class Product(models.Model):
     )
 
     class Meta:
-        ordering = ('name',)
+        ordering = ('id',)
 
     def __str__(self):
         return self.name
 
 
 class ShoppingList(models.Model):
-    """Model for add product in Shopping list."""
+    """Model for interacting with a product in a shopping list."""
 
     user = models.ForeignKey(
         User,
