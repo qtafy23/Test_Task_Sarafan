@@ -35,7 +35,7 @@ class ProductViewSet(ReadOnlyModelViewSet):
             serializer_class=ShoppingListSerializer,
             permission_classes=(IsAuthenticated,),
     )
-    def shopping_cart(self, request, pk=None):
+    def shopping_list(self, request, pk=None):
         """Function for choosing a method for request."""
 
         if self.request.method == 'POST':
